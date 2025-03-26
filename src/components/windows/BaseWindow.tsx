@@ -196,7 +196,7 @@ export function BaseWindow({
                   height={24}
                   className="p-1"
                 />
-                <h1 className="text-lg font-bold">{title}</h1>
+                <h1 className="text-lg font-bold text-white">{title}</h1>
                 <div className="ml-auto flex gap-1">
                   <Button className="bg-dialogue" onClick={onMinimize}>
                     <Image
