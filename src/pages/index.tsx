@@ -55,7 +55,7 @@ export default function Home() {
     <>
       <Head>
         <title>reeslabree.com</title>
-        <meta name="description" content="Rees Labree's personal website" />
+        <meta name="description" content="Home of the original reeslabree" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
