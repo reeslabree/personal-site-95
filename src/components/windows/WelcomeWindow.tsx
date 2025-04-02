@@ -43,9 +43,12 @@ export function WelcomeWindow(props: Props) {
         <h2 className="text-black text-xl font-bold">
           Welcome to reeslabree.com
         </h2>
-        <p className="text-black text-md">
+        <p className="text-black text-md hidden md:block">
           Double click on the desktop icons to the left to explore different
           pages.
+        </p>
+        <p className="text-black text-md block md:hidden">
+          Click on the desktop icons to the left to explore different pages.
         </p>
         <p className="text-black text-md">
           You can close or minimize this window by clicking the buttons in the

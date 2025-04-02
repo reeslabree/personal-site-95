@@ -107,6 +107,7 @@ export function ProjectsWindow(props: Props) {
       minWidth={Math.round(WIDTH * 0.5)}
       minHeight={Math.round(HEIGHT * 0.5)}
       allowResize
+      triggerResize={[selectedProject]}
     >
       <div className="w-full h-full flex flex-col gap-2">
         <div className="w-full border-b border-white">
@@ -255,7 +256,7 @@ export function ProjectsWindow(props: Props) {
               <h2 className="font-semibold">
                 Select a project from the top row
               </h2>
-              <p>
+              <p className="text-center">
                 You can also press the corresponding letter on your keyboard to
                 select a project
               </p>

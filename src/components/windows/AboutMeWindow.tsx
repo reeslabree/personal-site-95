@@ -43,8 +43,8 @@ export function AboutMeWindow(props: Props) {
       minHeight={HEIGHT}
       minWidth={WIDTH}
     >
-      <div className="w-full grid grid-cols-[150px_1fr] gap-4">
-        <div className="row-span-2">
+      <div className="w-full flex flex-col items-center md:grid md:grid-cols-[150px_1fr] gap-4">
+        <div className="md:row-span-2">
           <Image
             src={isHovered ? "/portrait-highres.png" : "/portrait-pixel.jpg"}
             alt="portrait"

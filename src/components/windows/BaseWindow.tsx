@@ -3,6 +3,7 @@ import { Button } from "../Button";
 import { MOUSE_MOVE, MOUSE_RELEASE, START_BAR_HEIGHT } from "@rees/constants";
 import { useRef, useEffect, useState } from "react";
 import Scrollbar from "../Scrollbar";
+import { cn } from "@rees/utils";
 
 export interface BaseWindowProps {
   width: number;
@@ -23,6 +24,7 @@ export interface BaseWindowProps {
   allowResize?: boolean;
   onFocus: () => void;
   isFocused: boolean;
+  triggerResize?: any[];
 }
 
 export function BaseWindow({
@@ -44,6 +46,7 @@ export function BaseWindow({
   allowResize = false,
   onFocus,
   isFocused,
+  triggerResize,
 }: BaseWindowProps) {
   const previousSize = useRef<{
     width: number;
@@ -56,6 +59,8 @@ export function BaseWindow({
   const contentRef = useRef<HTMLDivElement>(null);
 
   const [shouldDisplayScroll, setShouldDisplayScroll] = useState(false);
+
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -77,7 +82,7 @@ export function BaseWindow({
         resizeObserver.unobserve(containerRef.current);
       }
     };
-  }, [containerRef]);
+  }, [containerRef.current, ...(triggerResize || [])]);
 
   const onMaximize = () => {
     const MARGIN_PERCENT = 0.1;
@@ -172,7 +177,7 @@ export function BaseWindow({
 
   return (
     <div
-      className={`absolute bg-dialogue ${isFocused ? "z-10" : "z-0"}`}
+      className={cn("absolute bg-dialogue", isFocused ? "z-10" : "z-0")}
       style={{
         width: `${width}px`,
         height: `${height}px`,
@@ -206,14 +211,16 @@ export function BaseWindow({
                       height={16}
                     />
                   </Button>
-                  <Button className="bg-dialogue" onClick={onMaximize}>
-                    <Image
-                      src="/icons/maximize.png"
-                      alt="maximize"
-                      width={16}
-                      height={16}
-                    />
-                  </Button>
+                  {!isMobile && (
+                    <Button className="bg-dialogue" onClick={onMaximize}>
+                      <Image
+                        src="/icons/maximize.png"
+                        alt="maximize"
+                        width={16}
+                        height={16}
+                      />
+                    </Button>
+                  )}
                   <Button className="bg-dialogue" onClick={onClose}>
                     <Image
                       src="/icons/close.png"
