@@ -9,15 +9,20 @@ interface Props {
 
 export function DesktopIcon({ imageSrc, title, onClick }: Props) {
   const { onDoubleClick } = useDoubleClick({ onClick });
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-1">
       <Image
         className="cursor-pointer"
-        onMouseDown={() => onDoubleClick()}
+        onMouseDown={onDoubleClick}
         onTouchStart={(e) => {
           e.preventDefault();
-          onDoubleClick();
+          if (isMobile) {
+            onClick();
+          } else {
+            onDoubleClick();
+          }
         }}
         src={imageSrc}
         alt={title}
