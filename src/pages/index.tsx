@@ -59,7 +59,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="w-screen h-screen overflow-hidden relative">
+      <div className="w-screen h-[100dvh] overflow-hidden relative">
         <div className="w-full h-full flex flex-col p-4 items-start">
           <div className="grid grid-cols-2 justify-items-start lg:flex lg:flex-col gap-6">
             <DesktopIcon
