@@ -6,6 +6,8 @@ import {
   ProjectsWindow,
   ConnectWindow,
   BlogWindow,
+  PaintWindow,
+  
 } from "@rees/components";
 import { Application } from "@rees/types";
 import Head from "next/head";
@@ -87,6 +89,11 @@ export default function Home() {
               title="Blog"
               onClick={() => handleOpen("blog")}
             />
+            <DesktopIcon
+              imageSrc="/icons/paint.png"
+              title="Paint"
+              onClick={() => handleOpen("paint")}
+            />
           </div>
           {isWindowLoaded &&
             openApplications.map((application) => {
@@ -133,6 +140,16 @@ export default function Home() {
               } else if (application === "blog") {
                 return (
                   <BlogWindow
+                    key={application}
+                    onMinimize={() => handleMinimize(application)}
+                    onClose={() => handleClose(application)}
+                    isFocused={focusedWindow === application}
+                    onFocus={() => handleFocus(application)}
+                  />
+                );
+              } else if (application == "paint") {
+                return(
+                  <PaintWindow
                     key={application}
                     onMinimize={() => handleMinimize(application)}
                     onClose={() => handleClose(application)}

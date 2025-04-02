@@ -3,4 +3,5 @@ export type Application =
   | "projects"
   | "connect"
   | "blog"
-  | "welcome";
+  | "welcome"
+  | "paint";

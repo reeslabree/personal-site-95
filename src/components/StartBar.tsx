@@ -52,6 +52,10 @@ export function StartBar({
               iconPath = "/icons/blog.png";
               title = "Blog";
               break;
+            case "paint":
+              iconPath = "/icons/paint.png";
+              title = "Paint";
+              break;
           }
 
           return (
