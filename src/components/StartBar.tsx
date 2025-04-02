@@ -26,51 +26,53 @@ export function StartBar({
         <span>Start</span>
       </Button>
       <div className="w-1 border-r-2 border-b-2 border-dark-gray bg-white" />
-      {runningApplications.map((application) => {
-        const isOpen = openApplications.includes(application);
-        let iconPath = "";
-        let title = "";
-        switch (application) {
-          case "welcome":
-            iconPath = "/icons/welcome.png";
-            title = "Welcome";
-            break;
-          case "about-me":
-            iconPath = "/icons/about-me.png";
-            title = "About Me";
-            break;
-          case "projects":
-            iconPath = "/icons/projects.png";
-            title = "Projects";
-            break;
-          case "connect":
-            iconPath = "/icons/connect.png";
-            title = "Connect";
-            break;
-          case "blog":
-            iconPath = "/icons/blog.png";
-            title = "Blog";
-            break;
-        }
+      <div className="w-full flex gap-2 overflow-x-scroll">
+        {runningApplications.map((application) => {
+          const isOpen = openApplications.includes(application);
+          let iconPath = "";
+          let title = "";
+          switch (application) {
+            case "welcome":
+              iconPath = "/icons/welcome.png";
+              title = "Welcome";
+              break;
+            case "about-me":
+              iconPath = "/icons/about-me.png";
+              title = "About Me";
+              break;
+            case "projects":
+              iconPath = "/icons/projects.png";
+              title = "Projects";
+              break;
+            case "connect":
+              iconPath = "/icons/connect.png";
+              title = "Connect";
+              break;
+            case "blog":
+              iconPath = "/icons/blog.png";
+              title = "Blog";
+              break;
+          }
 
-        return (
-          <Button
-            key={application}
-            className="lg:text-2xl font-normal flex gap-2 pr-1 lg:w-48 justify-start flex "
-            onClick={() => onApplicationClick(application)}
-            isDisabled={isOpen}
-          >
-            <Image
-              src={iconPath}
-              alt={application}
-              width={32}
-              height={32}
-              className="p-1"
-            />
-            <span>{title}</span>
-          </Button>
-        );
-      })}
+          return (
+            <Button
+              key={application}
+              className="lg:text-2xl font-normal flex gap-2 pr-1 lg:w-48 justify-start flex text-lg w-36"
+              onClick={() => onApplicationClick(application)}
+              isDisabled={isOpen}
+            >
+              <Image
+                src={iconPath}
+                alt={application}
+                width={32}
+                height={32}
+                className="p-1"
+              />
+              <span>{title}</span>
+            </Button>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -14,7 +14,11 @@ export function DesktopIcon({ imageSrc, title, onClick }: Props) {
     <div className="w-full h-full flex flex-col items-center justify-center gap-1">
       <Image
         className="cursor-pointer"
-        onClick={onDoubleClick}
+        onMouseDown={() => onDoubleClick()}
+        onTouchStart={(e) => {
+          e.preventDefault();
+          onDoubleClick();
+        }}
         src={imageSrc}
         alt={title}
         width={48}
