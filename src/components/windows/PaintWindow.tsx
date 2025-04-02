@@ -29,7 +29,7 @@ type Tool = "freehand" | "rectangle" | "circle" | "bucket";
 export function PaintWindow(props: Props) {
   const windowPosition = useWindow({
     initWidth: WIDTH + 20,
-    initHeight: HEIGHT + TOOLBAR_HEIGHT + 10,
+    initHeight: HEIGHT + TOOLBAR_HEIGHT + 100,
     initTop: 300,
     initLeft: 275,
   });
@@ -95,7 +95,7 @@ export function PaintWindow(props: Props) {
         const width = endX - startX;
         const height = endY - startY;
         ctx.strokeRect(startX, startY, width, height);
-        ctx.fillStyle = color; // Fill the rectangle
+        //ctx.fillStyle = color; // Fill the rectangle
         ctx.fillRect(startX, startY, width, height);
       } else if (tool === "circle") {
         const radius = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
@@ -269,7 +269,7 @@ export function PaintWindow(props: Props) {
             ref={canvasRef}
             className="border border-black bg-white"
             width={WIDTH}
-            height={HEIGHT - TOOLBAR_HEIGHT}
+            height={HEIGHT}
             onMouseDown={startPosition}
             onMouseUp={endPosition}
             onMouseLeave={endPosition}
