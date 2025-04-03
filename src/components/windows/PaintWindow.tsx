@@ -30,8 +30,8 @@ export function PaintWindow(props: Props) {
   const windowPosition = useWindow({
     initWidth: WIDTH + 20,
     initHeight: HEIGHT + TOOLBAR_HEIGHT + 100,
-    initTop: 300,
-    initLeft: 275,
+    initTop: 100,
+    initLeft: 300,
   });
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
