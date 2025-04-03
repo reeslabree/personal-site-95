@@ -41,6 +41,7 @@ export function PaintWindow(props: Props) {
   const [painting, setPainting] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startY, setStartY] = useState(0);
+  const [undoStack, setUndoStack] = useState<ImageData[]>([]); // Store canvas history
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -53,6 +54,30 @@ export function PaintWindow(props: Props) {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }, []);
+
+  const saveCanvasState = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    setUndoStack((prev) => [...prev, imageData]); // Save canvas state to undo stack
+  };
+
+  const undo = () => {
+    if (undoStack.length === 0) return;
+
+    const lastState = undoStack[undoStack.length - 1];
+    setUndoStack((prev) => prev.slice(0, -1)); // Remove last state from the stack
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.putImageData(lastState, 0, 0); // Restore the previous state
+  };
 
   // Start drawing (initialize freehand or shapes)
   const startPosition = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -104,6 +129,9 @@ export function PaintWindow(props: Props) {
         ctx.fill();
       }
     }
+
+    // Save canvas state after drawing action
+    saveCanvasState();
   };
 
   // Draw freehand as the mouse moves
@@ -147,6 +175,9 @@ export function PaintWindow(props: Props) {
 
     floodFill(x, y, startColor, color, pixels, canvas.width, canvas.height);
     ctx.putImageData(imageData, 0, 0);
+
+    // Save canvas state after fill action
+    saveCanvasState();
   };
 
   // Helper function to get color at a pixel
@@ -206,6 +237,7 @@ export function PaintWindow(props: Props) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    setUndoStack([]); // Clear undo history after clearing the canvas
   };
 
   return (
@@ -246,6 +278,12 @@ export function PaintWindow(props: Props) {
           >
             Clear
           </button>
+          <button
+            onClick={undo}
+            className="bg-blue-500 text-white px-4 py-1 rounded"
+          >
+            Undo
+          </button>
           <label>
             Tool:
             <select
@@ -267,7 +305,7 @@ export function PaintWindow(props: Props) {
             ref={canvasRef}
             className="border border-black bg-white"
             width={WIDTH}
-            height={HEIGHT}
+            height={HEIGHT - TOOLBAR_HEIGHT}
             onMouseDown={startPosition}
             onMouseUp={endPosition}
             onMouseLeave={endPosition}
