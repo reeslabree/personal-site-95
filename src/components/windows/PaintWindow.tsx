@@ -95,14 +95,12 @@ export function PaintWindow(props: Props) {
         const width = endX - startX;
         const height = endY - startY;
         ctx.strokeRect(startX, startY, width, height);
-        //ctx.fillStyle = color; // Fill the rectangle
         ctx.fillRect(startX, startY, width, height);
       } else if (tool === "circle") {
         const radius = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
         ctx.beginPath();
         ctx.arc(startX, startY, radius, 0, Math.PI * 2);
         ctx.stroke();
-        ctx.fillStyle = color; // Fill the circle
         ctx.fill();
       }
     }
